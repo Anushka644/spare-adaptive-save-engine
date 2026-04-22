@@ -6,6 +6,14 @@ The engine replaces a fixed "save ₹10–₹50 per transaction" rule with a dyn
 
 ---
 
+## Screenshots
+
+| Inputs | Engine decision | Scenario reference |
+|--------|-----------------|--------------------|
+| ![Input section](Input.png) | ![Result section](Result.png) | ![Scenarios section](Scenario.png) |
+
+---
+
 ## What it does
 
 When a user makes a UPI transaction, the engine:
@@ -48,8 +56,12 @@ The 0–100 score is built from three inputs:
 ```
 spare-adaptive-save-engine/
 │
-├── spare_engine.py      # Main app — engine logic + Streamlit UI
-└── README.md
+├── spare_engine.py    # Main app — engine logic + Streamlit UI
+├── README.md
+├── Input.png          # Screenshot — input section
+├── Result.png         # Screenshot — engine decision output
+├── Scenario.png       # Screenshot — scenario reference cards
+└── .gitignore
 ```
 
 All logic is in a single file. There are no external API calls, no database, and no ML model — just a transparent, auditable rule set that behaves intelligently.
@@ -93,7 +105,11 @@ The UI has three inputs:
 | Current account balance (₹) | Account balance at the time of the transaction |
 | Recent spending pattern | Low / Medium / High over the last 7 days |
 
+![Input section](Input.png)
+
 Adjust the sliders and see the engine's decision update in real time. Use the **"See the decision breakdown"** expander to inspect the full scoring chain — context score, mode selected, save rate applied, and how each safety rule affected the final amount.
+
+![Result section](Result.png)
 
 **Suggested scenarios to try:**
 
@@ -101,6 +117,8 @@ Adjust the sliders and see the engine's decision update in real time. Use the **
 - `₹250 transaction · ₹4,500 balance · Medium spending` → Normal mode, standard save
 - `₹300 transaction · ₹1,200 balance · High spending` → Skip (multiple stress signals)
 - `Any transaction · ₹400 balance` → Skip (below safety floor)
+
+![Scenarios section](Scenario.png)
 
 ---
 
